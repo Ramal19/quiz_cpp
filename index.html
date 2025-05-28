@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="az">
+
 <head>
   <meta charset="UTF-8">
-  <title>C++ Test Sistemi</title>
+  <title>Teacher Ramal</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 30px;
       background-color: #f5f5f5;
     }
+
     .question {
       background-color: white;
       padding: 15px;
@@ -16,194 +18,209 @@
       border: 1px solid #ccc;
       border-radius: 5px;
     }
+
     pre {
       background-color: #f0f0f0;
       padding: 10px;
       border-radius: 4px;
       overflow-x: auto;
     }
+
     button {
       padding: 10px 20px;
       font-size: 16px;
       margin-top: 20px;
     }
+
     .result {
       font-size: 18px;
       margin-top: 20px;
       font-weight: bold;
     }
-    .correct {
-      background-color: #c8e6c9; /* yaşıl */
-      padding: 5px;
-      border-radius: 4px;
+
+    .input-container {
+      margin-bottom: 20px;
     }
-    .wrong {
-      background-color: #ffcdd2; /* qırmızı */
-      padding: 5px;
-      border-radius: 4px;
+
+    .correct {
+      background-color: green;
+      color: white;
+    }
+
+    .incorrect {
+      background-color: red;
+      color: white;
     }
   </style>
 </head>
+
 <body>
 
   <h1>C++ üzrə 15 suallıq test</h1>
+
+  <div class="input-container">
+    <label for="name">Ad Soyad:</label>
+    <input type="text" id="name" placeholder="Ad Soyad daxil edin" />
+  </div>
+
   <div id="quiz"></div>
   <button onclick="showResult()">Nəticəni göstər</button>
   <div class="result" id="result"></div>
+  <div id="allResults"></div>
 
   <script>
     const questions = [
       {
-        question: "1. `main` funksiyası aşağıdakı hallardan hansı ilə başlamalıdır?",
-        options: { a: "void main()", b: "int main()", c: "char main()", d: "float main()" },
+        question: "1. C++ dilində tam ədəd saxlamaq üçün hansı tip istifadə olunur?",
+        options: { a: "float", b: "int", c: "char", d: "string" },
         answer: "b"
       },
       {
-        question: "2. Aşağıdakı kodda hansı dəyişiklik doğru olar?",
-        code: "int a = 10, b = 2;\nint c = a / b;\ncout << c;",
+        question: "2. Aşağıdakı kod nəyi icra edir?",
+        code: "int a;\ncin >> a;",
         options: {
-          a: "a / b yerinə a + b yazılmalıdı",
-          b: "a / b əvəzinə a % b yazılmalıdı",
-          c: "a / b əməliyyatı doğru işləyir",
-          d: "a / b əməliyyatı səhvdir, cin istifadə olunmalıdı"
+          a: "İstifadəçidən simvol daxil etməyi gözləyir",
+          b: "Ekrana tam ədəd çıxarır",
+          c: "İstifadəçidən tam ədəd oxuyur",
+          d: "Onluq ədəd hesablayır"
         },
         answer: "c"
       },
       {
-        question: "3. Aşağıdakı dəyişən təyinatlarından hansında səhv var?",
+        question: "3. Aşağıdakılardan hansı simvol tipinə uyğun dəyərdir?",
         options: {
-          a: "int x = 3;",
-          b: "float y = 3.14;",
-          c: "char z = 'A';",
-          d: "string z = 5;"
+          a: "'A'",
+          b: "A",
+          c: "\"A\"",
+          d: "A;"
+        },
+        answer: "a"
+      },
+      {
+        question: "4. Hansi operator vurma əməliyyatını yerinə yetirir?",
+        options: {
+          a: "/",
+          b: "*",
+          c: "%",
+          d: "+"
+        },
+        answer: "b"
+      },
+      {
+        question: "5. Aşağıdakılardan hansı yazı (metn) tipi üçün uyğundur?",
+        options: {
+          a: "int",
+          b: "float",
+          c: "string",
+          d: "char"
+        },
+        answer: "c"
+      },
+      {
+        question: "6. Aşağıdakı kodda nə baş verir?",
+        code: "char ch = 'b';\ncout << ch;",
+        options: {
+          a: "b simvolu ekrana verilir",
+          b: "Səhv çıxır",
+          c: "string göstərilir",
+          d: "Heç nə göstərilmir"
+        },
+        answer: "a"
+      },
+      {
+        question: "7. `getline()` funksiyası nə üçün istifadə olunur?",
+        options: {
+          a: "Tam ədəd oxumaq üçün",
+          b: "Tək simvol oxumaq üçün",
+          c: "Tam sətri oxumaq üçün",
+          d: "Boolean dəyər oxumaq üçün"
+        },
+        answer: "c"
+      },
+      {
+        question: "8. `cin.ignore()` funksiyasının əsas məqsədi nədir?",
+        options: {
+          a: "Proqramı dayandırmaq",
+          b: "Tamponu təmizləmək",
+          c: "Sətiri silmək",
+          d: "Mətn dəyişdirmək"
+        },
+        answer: "b"
+      },
+      {
+        question: "9. `bool` tipində hansı dəyərlər istifadə olunur?",
+        options: {
+          a: "true və false",
+          b: "int və float",
+          c: "1 və 2",
+          d: "char və string"
+        },
+        answer: "a"
+      },
+      {
+        question: "10. `cout` nə üçün istifadə olunur?",
+        options: {
+          a: "Ekrana məlumat çıxarmaq üçün",
+          b: "Tam ədəd oxumaq üçün",
+          c: "Simvol saxlamaq üçün",
+          d: "Mətn silmək üçün"
+        },
+        answer: "a"
+      },
+      {
+        question: "11. Aşağıdakı kodun nəticəsi nədir?",
+        code: "int a = 10, b = 3;\ncout << a % b;",
+        options: {
+          a: "3",
+          b: "1",
+          c: "0",
+          d: "10"
+        },
+        answer: "b"
+      },
+      {
+        question: "12. Hansı tip daha dəqiq ondalıklı ədədlər saxlaya bilir?",
+        options: {
+          a: "int",
+          b: "char",
+          c: "float",
+          d: "double"
         },
         answer: "d"
       },
       {
-        question: "4. Aşağıdakılardan hansı əməliyyatlar məntiqi yoxlama əməliyyatlarıdır?",
+        question: "13. `string` tipli dəyişən necə elan edilir?",
         options: {
-          a: "+, -, *",
-          b: "==, !=, <=",
-          c: "&&, ||, !",
-          d: "=, +=, -="
-        },
-        answer: "c"
-      },
-      {
-        question: "5. `if` şərti hansını yoxlayır?",
-        options: {
-          a: "`if` hər zaman doğru olur",
-          b: "`if` yalnız nömrə 0-a bərabər olduqda çalışır",
-          c: "`if` yalnız `true` olduğu halda işləyir",
-          d: "`if` yalnız `false` olduğu halda işləyir"
-        },
-        answer: "c"
-      },
-      {
-        question: "6. `int x = 10;` və `int y = 20;` dəyişənlərini müqayisə edərkən hansı operator istifadə olunmalıdır?",
-        options: {
-          a: "x == y",
-          b: "x > y",
-          c: "x != y",
-          d: "x >= y"
-        },
-        answer: "b"
-      },
-      {
-        question: "7. Aşağıdakı kodda hansı səhv var?",
-        code: "cout << a;",
-        options: {
-          a: "`a` dəyişəni təyin olunmayıb",
-          b: "`cout` ilə çap etmək üçün `cin` istifadə olunmalıdı",
-          c: "`a` dəyişəni int tipi ilə düzgün təyin olunub",
-          d: "Kod səhvsiz işləyir"
+          a: "string name;",
+          b: "string = name;",
+          c: "name string;",
+          d: "text name;"
         },
         answer: "a"
       },
       {
-        question: "8. Aşağıdakılardan hansının nəticəsi 0 olacaq?",
-        code: "int x = 3; int y = 3;\nbool result = (x == y);\ncout << result;",
+        question: "14. Aşağıdakı kodda nəticə nə olacaq?",
+        code: "int x = 5;\nint y = 2;\ncout << x / y;",
         options: {
-          a: "int x = 3; int y = 2; x % y;",
-          b: "int x = 3; int y = 3; x == y;",
-          c: "int x = 3; int y = 5; x + y;",
-          d: "int x = 5; int y = 2; x - y;"
+          a: "2.5",
+          b: "2",
+          c: "3",
+          d: "0"
         },
         answer: "b"
       },
       {
-        question: "9. Aşağıdakı şərtlərdən hansı doğru olmayanı təmsil edir?",
+        question: "15. C++ dilində dəyişən necə yaradılır?",
         options: {
-          a: "`if (x == 5)` yalnız `x` 5-ə bərabərdirsə işləyir",
-          b: "`if (x != 5)` yalnız `x` 5-dən fərqli olduqda işləyir",
-          c: "`if (x < 5)` yalnız `x` 5-dən kiçik olduqda işləyir",
-          d: "`if (x > 5)` yalnız `x` 5-dən böyük olduqda işləyir"
-        },
-        answer: "b"
-      },
-      {
-        question: "10. Aşağıdakı kodun nəticəsi nə olacaq?",
-        code: "int x = 5;\nif (x == 5) cout << \"True\";",
-        options: {
-          a: "\"True\" çap olunur",
-          b: "\"False\" çap olunur",
-          c: "heç nə çap olunmur",
-          d: "proqram səhv verir"
+          a: "tip deyisen;",
+          b: "deyisen tip;",
+          c: "tip = deyisen;",
+          d: "deyisen = tip;"
         },
         answer: "a"
-      },
-      {
-        question: "11. Aşağıdakı şərtlərdən hansında `cin` istifadə olunub?",
-        options: {
-          a: "`cin >> x;`",
-          b: "`cout << x;`",
-          c: "`cin = x;`",
-          d: "`cout = x;`"
-        },
-        answer: "a"
-      },
-      {
-        question: "12. Aşağıdakı kodun nəticəsi nə olacaq?",
-        code: "int x = 5;\nif (x < 10) cout << \"Yes\";",
-        options: {
-          a: "\"Yes\" çap olunur",
-          b: "\"No\" çap olunur",
-          c: "\"5\" çap olunur",
-          d: "\"10\" çap olunur"
-        },
-        answer: "a"
-      },
-      {
-        question: "13. Hansı operator yalnız məntiqi yoxlama üçün istifadə olunur?",
-        options: {
-          a: "+",
-          b: "&&",
-          c: "/",
-          d: "*"
-        },
-        answer: "b"
-      },
-      {
-        question: "14. Aşağıdakılardan hansı kod səhvdir?",
-        options: {
-          a: "`int x = 5;`",
-          b: "`int y = 3;`",
-          c: "`cin x = 10;`",
-          d: "`cin >> x;`"
-        },
-        answer: "c"
-      },
-      {
-        question: "15. Aşağıdakı ifadələrdən hansı düzgün şərt yoxlama əməliyyatını təmsil edir?",
-        options: {
-          a: "`if (x == 5)`",
-          b: "`if (x < y)`",
-          c: "`if (x != 10)`",
-          d: "Bütün bəndlər doğrudur"
-        },
-        answer: "d"
       }
     ];
+
 
     const quiz = document.getElementById("quiz");
 
@@ -218,28 +235,66 @@
       quiz.appendChild(div);
     });
 
+    window.onload = loadResults;
+
+    function loadResults() {
+      const results = JSON.parse(localStorage.getItem("results")) || [];
+      const container = document.getElementById('allResults');
+      container.innerHTML = "<h3>Əvvəlki nəticələr:</h3>";
+      results.forEach(r => {
+        const div = document.createElement('div');
+        div.innerText = `${r.name} - ${r.result}`;
+        container.appendChild(div);
+      });
+    }
+
     function showResult() {
+      const name = document.getElementById("name").value.trim();
+      if (!name) {
+        alert("Zəhmət olmasa, adınızı daxil edin!");
+        return;
+      }
+
       let correct = 0;
       questions.forEach((q, index) => {
         const selected = document.querySelector(`input[name="q${index}"]:checked`);
-        const options = document.getElementsByName(`q${index}`);
-        options.forEach(opt => {
-          const label = opt.parentElement;
-          label.classList.remove("correct", "wrong");
-          if (opt.value === q.answer) {
-            label.classList.add("correct");
-          } else if (opt.checked && opt.value !== q.answer) {
-            label.classList.add("wrong");
+        const inputs = document.querySelectorAll(`input[name="q${index}"]`);
+
+        inputs.forEach(input => {
+          const label = input.parentElement;
+          label.classList.remove("correct", "incorrect");
+        });
+
+        if (selected) {
+          if (selected.value === q.answer) {
+            correct++;
+          } else {
+            selected.parentElement.classList.add("incorrect");
+          }
+        }
+
+        inputs.forEach(input => {
+          if (input.value === q.answer) {
+            input.parentElement.classList.add("correct");
           }
         });
-        if (selected && selected.value === q.answer) {
-          correct++;
-        }
       });
-      document.getElementById("result").innerText =
-        `Siz ${questions.length} sualdan ${correct} düzgün cavab verdiniz.`;
+
+      const resultText = `Siz ${questions.length} sualdan ${correct} düzgün cavab verdiniz.`;
+      document.getElementById("result").innerText = resultText;
+
+      const existingResults = JSON.parse(localStorage.getItem("results")) || [];
+      if (!existingResults.some(result => result.name === name)) {
+        existingResults.push({ name, result: resultText });
+        localStorage.setItem("results", JSON.stringify(existingResults));
+      } else {
+        alert("Adınız artıq qeyd olunub. Adı dəyişdirmək mümkün deyil.");
+      }
+
+      loadResults();
     }
   </script>
 
 </body>
+
 </html>
